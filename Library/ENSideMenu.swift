@@ -85,7 +85,8 @@ public extension UIViewController {
     public func sideMenuController () -> ENSideMenuProtocol? {
         var iteration : UIViewController? = self.parent
         if (iteration == nil) {
-            return topMostController()
+//            return topMostController()
+            return nil
         }
         repeat {
             if (iteration is ENSideMenuProtocol) {
@@ -100,26 +101,26 @@ public extension UIViewController {
         return iteration as? ENSideMenuProtocol
     }
     
-    internal func topMostController () -> ENSideMenuProtocol? {
-        var topController : UIViewController? = UIApplication.shared.keyWindow?.rootViewController
-        if (topController is UITabBarController) {
-            topController = (topController as! UITabBarController).selectedViewController
-        }
-        var lastMenuProtocol : ENSideMenuProtocol?
-        while (topController?.presentedViewController != nil) {
-            if(topController?.presentedViewController is ENSideMenuProtocol) {
-                lastMenuProtocol = topController?.presentedViewController as? ENSideMenuProtocol
-            }
-            topController = topController?.presentedViewController
-        }
-        
-        if (lastMenuProtocol != nil) {
-            return lastMenuProtocol
-        }
-        else {
-            return topController as? ENSideMenuProtocol
-        }
-    }
+//    internal func topMostController () -> ENSideMenuProtocol? {
+//        var topController : UIViewController? = UIApplication.shared.keyWindow?.rootViewController
+//        if (topController is UITabBarController) {
+//            topController = (topController as! UITabBarController).selectedViewController
+//        }
+//        var lastMenuProtocol : ENSideMenuProtocol?
+//        while (topController?.presentedViewController != nil) {
+//            if(topController?.presentedViewController is ENSideMenuProtocol) {
+//                lastMenuProtocol = topController?.presentedViewController as? ENSideMenuProtocol
+//            }
+//            topController = topController?.presentedViewController
+//        }
+//        
+//        if (lastMenuProtocol != nil) {
+//            return lastMenuProtocol
+//        }
+//        else {
+//            return topController as? ENSideMenuProtocol
+//        }
+//    }
 }
 
 open class ENSideMenu : NSObject, UIGestureRecognizerDelegate {
@@ -237,15 +238,15 @@ open class ENSideMenu : NSObject, UIGestureRecognizerDelegate {
     }
     
     fileprivate func adjustFrameDimensions( _ width: CGFloat, height: CGFloat ) -> (CGFloat,CGFloat) {
-        if floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1 &&
-            (UIApplication.shared.statusBarOrientation == UIInterfaceOrientation.landscapeRight ||
-                UIApplication.shared.statusBarOrientation == UIInterfaceOrientation.landscapeLeft) {
-                    // iOS 7.1 or lower and landscape mode -> interchange width and height
-                    return (height, width)
-        }
-        else {
+//        if floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1 &&
+//            (UIApplication.shared.statusBarOrientation == UIInterfaceOrientation.landscapeRight ||
+//                UIApplication.shared.statusBarOrientation == UIInterfaceOrientation.landscapeLeft) {
+//                    // iOS 7.1 or lower and landscape mode -> interchange width and height
+//                    return (height, width)
+//        }
+//        else {
             return (width, height)
-        }
+//        }
         
     }
     
